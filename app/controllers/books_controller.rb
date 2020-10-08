@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :find_book, only: [:show, :edit, :update, :destroy]
   before_action :move_to_mybooks, except: [:mybooks, :show, :search]
+  before_action :move_to_book, only: [:edit]
 
   def mybooks
     @books = Book.includes(:user)
@@ -55,9 +56,15 @@ class BooksController < ApplicationController
   def find_book
     @book = Book.find(params[:id])
   end
-
+  
   def move_to_mybooks
     redirect_to action: :mybooks unless user_signed_in?
   end
+  
+  def move_to_book
+    @book = Book.find(params[:id])
+    redirect_to book_path(@book) if @book.user_id != current_user.id
+  end
+
 
 end

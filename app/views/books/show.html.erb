@@ -1,1 +1,39 @@
-<h1>show</h1>
+<h1>本の詳細ページ</h1>
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag @book.image, class:"book-show" %>
+  </div>
+  <div class="col-md-8">
+    <b>タイトル</b>
+    <h3>『<%= @book.title %>』</h3>
+    <b>著者</b>
+    <h4><%= @book.author %></h4>
+    <b>内容：</b>
+    <p><%= @book.description %><p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <%# ここにレビュー機能を実装 %>
+    <%#= render @book.reviews %>
+    <%# 上記の書き方は、https://pikawaka.com/rails/partial_template を参照のこと。 %>
+    <div>
+      <%#= link_to 'レビューする', new_book_review_path(@book) %>
+    </div>
+  </div>
+</div>
+
+
+
+<% if user_signed_in? && @book.user_id == current_user.id %>
+  <ul>
+    <li><%= link_to 'マイ本棚へ戻る', root_path %></li>
+    <li><%= link_to '本の内容を編集する', edit_book_path(@book) %></li>
+    <li><%= link_to '本棚から削除する', book_path(@book), method: :delete, data: { confirm: "Are you sure?"} %></li>
+  </ul>
+<% else %>
+  <ul>
+  <li><%= link_to 'みんなの本棚へ戻る', books_path %></li>
+  </ul>
+<% end %>
