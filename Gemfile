@@ -61,3 +61,8 @@ gem 'pry-rails'
 
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+gem 'jquery-rails'
+
+gem 'simple_form', '~> 5.0', '>= 5.0.2'
