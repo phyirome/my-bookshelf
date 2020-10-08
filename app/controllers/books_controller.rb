@@ -1,12 +1,17 @@
 class BooksController < ApplicationController
-  before_action :find_book, only: [:show, :edit, :update, :destroy] 
+  before_action :find_book, only: [:show, :edit, :update, :destroy]
+  before_action :move_to_mybooks, except: [:mybooks, :show, :search]
 
   def mybooks
-    @books = Book.all.current_user.book
+    @books = Book.includes(:user)
   end
-
+  
   def index
-    @books = Book.all
+    if user_signed_in?
+      @books = current_user.books
+    else
+      @books = Book.includes(:user)
+    end
   end
 
   def new
@@ -44,11 +49,15 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :description, :author,:publisher).merge(user_id: current_user.id)
+    params.require(:book).permit(:title, :description, :author, :publisher, :image).merge(user_id: current_user.id)
   end
 
   def find_book
     @book = Book.find(params[:id])
+  end
+
+  def move_to_mybooks
+    redirect_to action: :mybooks unless user_signed_in?
   end
 
 end

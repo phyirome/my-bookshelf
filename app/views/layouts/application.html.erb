@@ -21,23 +21,27 @@
           <%= link_to 'My BookShelf', root_path, class: "navbar-brand" %>
         </div>
         <ul class="nav navbar-nav">
-          <li><%= link_to '新規登録', new_user_registration_path %></li>
           <% if user_signed_in? %>
+            <li><%= link_to current_user.nickname, root_path %></li>
             <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
           <% else %>
+            <li><%= link_to '新規登録', new_user_registration_path %></li>
             <li><%= link_to 'ログイン', new_user_session_path %></li>
           <% end %>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            <li><%= link_to '本の追加', new_book_path %></li>
+            <li><%= link_to 'みんなの本棚', books_path %></li>
+          <% end %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton">Menu <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
+              <li>カテゴリ</li>
+              <li>カテゴリ2</li>
             </ul>
           </li>
-        <% if user_signed_in? %>
-          <li><%= link_to '本の追加', new_book_path %></li>
-        <% end %>
         </ul>
       </div>
     
