@@ -10,21 +10,20 @@
     <h4><%= @book.author %></h4>
     <b>内容：</b>
     <p><%= @book.description %><p>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-4">
+    <b>レビューの一覧：</b>
     <%# ここにレビュー機能を実装 %>
-    <%#= render @book.reviews %>
+    <%= render @book.reviews %>
     <%# 上記の書き方は、https://pikawaka.com/rails/partial_template を参照のこと。 %>
-    <div>
-      <%#= link_to 'レビューする', new_book_review_path(@book) %>
-    </div>
   </div>
 </div>
 
 
+<% if user_signed_in? %>
+  <ul>
+    <li><%= link_to 'この本をレビューする', new_book_review_path(@book) %></li>
+  </ul>
+<% end %>
 
 <% if user_signed_in? && @book.user_id == current_user.id %>
   <ul>

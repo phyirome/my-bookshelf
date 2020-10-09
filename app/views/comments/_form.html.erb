@@ -1,0 +1,6 @@
+<%#= simple_form_for([@book, @book.reviews.build]) do |f| %>
+<%= simple_form_for([@book, @review, @comment]) do |f| %>
+  <%= f.input :like %>
+  <%= f.input :content %>
+  <%= f.button :submit, value="完了" %>
+<% end %>

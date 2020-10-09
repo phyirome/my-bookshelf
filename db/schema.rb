@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_005502) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.boolean "like"
-    t.text "comment", null: false
+    t.text "content", null: false
     t.bigint "user_id"
     t.bigint "book_id"
     t.bigint "review_id"
