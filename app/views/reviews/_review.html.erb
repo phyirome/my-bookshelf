@@ -4,19 +4,21 @@
 <p>星：<%= review.rating %></p>
 <p>投稿：<%= review.content %></p>
 
-<% rv_counter = Review.find{review_counter}.comments %>
+<%# rv_counter = Review.find{review_counter}.comments %>
 <%#= puts "hello" %>
 
 <div>
   <% if user_signed_in? && review.user_id == current_user.id %>
     <%= link_to 'レビューの編集', edit_book_review_path(review.book, review) %>
     <%= link_to 'レビューの削除', book_review_path(review.book, review), method: :delete, data: {confirm: "Are you sure?"} %>
-  <p><%= link_to 'このレビューへのコメントを表示', book_review_path(Book.find(params[:id]),Review.find{review_counter}.comments) %></p>
+  <p><%#= link_to 'このレビューへのコメントを表示', book_review_path(Book.find(params[:id]),Review.find{review_counter}.comments) %></p>
+  <%= render partial: 'comments/comment', collection: @comments %>
   <% end %>
 
   <% if user_signed_in? && review.user_id != current_user.id %>
-  <p><%= link_to 'このレビューへのコメントを表示', book_review_path(Book.find(params[:id]),Review.find{review_counter}.comments) %></p>
-    <%= link_to 'このレビューにコメントする', new_book_review_comment_path(Book.find(params[:id]),Review.find{review_counter}.comments) %>
+  <p><%#= link_to 'このレビューへのコメントを表示', book_review_path(Book.find(params[:id]),Review.find{review_counter}.comments) %></p>
+    <%#= link_to 'このレビューにコメントする', new_book_review_comment_path(Book.find(params[:id]),Review.find{review_counter}.comments) %>
+    <%= render partial: 'comments/comment', collection: @comments %>
   <% end %>
 </div>
 
