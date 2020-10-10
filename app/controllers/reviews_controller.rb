@@ -21,6 +21,12 @@ class ReviewsController < ApplicationController
 
   def edit
   end
+
+  def show
+    # binding.pry
+    # @comments = @review.comments
+    @review = Review.find(params[:id]).comments.target
+  end
   
   def update
     if @review.update(review_params)

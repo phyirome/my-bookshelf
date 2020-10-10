@@ -31,8 +31,11 @@ class BooksController < ApplicationController
   def show
     # binding.pry
     # @comment = Comment.find(params[:comment_id])
-    # @review = Review.find(params[:id])
     # @comments = @review.comments.includes(:review)
+    # @comments = @book.review.comment.all
+    # @review = Review.find(params[:id])
+    # ↓これは惜しかった
+    # @review = @book.reviews[1].comments
   end
 
   def edit

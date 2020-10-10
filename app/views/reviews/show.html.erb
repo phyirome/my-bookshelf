@@ -1,0 +1,8 @@
+<h1>show review</h1>
+<b>レビュー</b>
+<div>投稿者：<%= @review.user.nickname %></div>
+<div>星：<%= @review.rating %></div>
+<div>投稿：<%= @review.content %></div>
+<p></p>
+
+<%= render partial: 'comments/comment', collection: @comments %>

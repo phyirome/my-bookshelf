@@ -1,28 +1,23 @@
+<p></p>
 <b>レビュー</b>
 <p>投稿者：<%= review.user.nickname %></p>
 <p>星：<%= review.rating %></p>
 <p>投稿：<%= review.content %></p>
 
+<% rv_counter = Review.find{review_counter}.comments %>
+<%#= puts "hello" %>
+
 <div>
   <% if user_signed_in? && review.user_id == current_user.id %>
     <%= link_to 'レビューの編集', edit_book_review_path(review.book, review) %>
     <%= link_to 'レビューの削除', book_review_path(review.book, review), method: :delete, data: {confirm: "Are you sure?"} %>
+  <p><%= link_to 'このレビューへのコメントを表示', book_review_path(Book.find(params[:id]),Review.find{review_counter}.comments) %></p>
   <% end %>
 
   <% if user_signed_in? && review.user_id != current_user.id %>
-    <%= link_to 'このレビューにコメントする', new_book_review_comment_path(Book.find(params[:id]),Review.find(params[:id])) %>
+  <p><%= link_to 'このレビューへのコメントを表示', book_review_path(Book.find(params[:id]),Review.find{review_counter}.comments) %></p>
+    <%= link_to 'このレビューにコメントする', new_book_review_comment_path(Book.find(params[:id]),Review.find{review_counter}.comments) %>
   <% end %>
 </div>
 
-<%# @comments.each do |comment| %>
-  <b>この投稿へのコメント：</b>
-  <div>
-    コメント投稿者：<%#= comment.user.nickname %>
-  </div>
-  <div>
-    コメント：<%#= comment.content %>
-  </div>
-  <div>
-    いいね：<%#= comment.like %>
-  </div>
-<%# end %>
+<%#= render @comments %>
